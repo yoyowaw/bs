@@ -10,15 +10,12 @@ import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.print.attribute.standard.SheetCollate;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -30,7 +27,7 @@ public class SubareaController {
     @Autowired
     private SubareaService subareaService;
     @Autowired
-    private HttpServletRequest request;
+    private HttpServletRequest servletRequest;
 
     @RequestMapping("/su")
     public String add(Subarea subarea){
@@ -42,9 +39,9 @@ public class SubareaController {
     @ResponseBody
     public PageBean<Subarea>  queryList(
             String addresskey, int page, int rows){
-        String province = request.getParameter("region.province");
-        String city = request.getParameter("region.city");
-        String district = request.getParameter("region.district");
+        String province = servletRequest.getParameter("region.province");
+        String city = servletRequest.getParameter("region.city");
+        String district = servletRequest.getParameter("region.district");
         SubareaQueryContion subareaQueryContion = new SubareaQueryContion(province,city,district,addresskey);
         PageBean<Subarea> all = subareaService.findAll(page, rows,subareaQueryContion);
         return all;

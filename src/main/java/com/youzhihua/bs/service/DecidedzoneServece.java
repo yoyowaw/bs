@@ -6,6 +6,8 @@ import com.youzhihua.bs.dao.StaffMapper;
 import com.youzhihua.bs.dao.entity.Decidedzone;
 import com.youzhihua.bs.dao.entity.Staff;
 import com.youzhihua.bs.utils.PageBean;
+import com.youzhihua.request.AddDecideZoneRequest;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,8 +22,10 @@ public class DecidedzoneServece {
     @Autowired
     private StaffMapper staffMapper;
 
-    public void add(Decidedzone decidedzone) {
-        mapper.insert(decidedzone);
+    public void add(AddDecideZoneRequest decidedzone) {
+        Decidedzone decidedzone1 = new Decidedzone();
+        BeanUtils.copyProperties(decidedzone,decidedzone1);
+        mapper.insert(decidedzone1);
     }
 
     public PageBean<Decidedzone> findItemByPage(int page, int rows) {

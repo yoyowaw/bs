@@ -4,14 +4,17 @@ import com.youzhihua.bs.dao.entity.QpNoticebill;
 import com.youzhihua.bs.dao.entity.QpWorkbill;
 import com.youzhihua.bs.dao.entity.QpWorkordermanege;
 import com.youzhihua.bs.service.NoticeBillService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 
-@Controller
+@RestController
+@Api("")
 public class NoticeBillController {
 
     @Autowired

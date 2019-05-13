@@ -1,12 +1,18 @@
 package com.youzhihua.bs.dto;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
+@ApiModel("用户登录请求参数")
 public class UserLoginDTO {
 
+    @ApiModelProperty("验证码")
     private String checkCode;
 
+    @ApiModelProperty("用户名")
     private String username;
 
+    @ApiModelProperty("密码")
     private String password;
 
     public UserLoginDTO() {

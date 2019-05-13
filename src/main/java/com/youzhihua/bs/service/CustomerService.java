@@ -1,5 +1,6 @@
 package com.youzhihua.bs.service;
 
+import com.youzhihua.request.LinkCustomerRequest;
 import com.youzhihua.bs.dao.TCustomerMapper;
 import com.youzhihua.bs.dao.entity.TCustomer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,11 +27,11 @@ public class CustomerService {
         return mapper.findNotLink();
     }
 
-    public void linkCustomer(Integer id, String customerIds) {
-        String[] split = customerIds.split(",");
+    public void linkCustomer(LinkCustomerRequest request) {
+        String[] split = request.getCustomerIds().split(",");
         for (String s : split) {
             mapper.clearLink(Integer.valueOf(s));
-            mapper.link(id , Integer.valueOf(s));
+            mapper.link(request.getId() , Integer.valueOf(s));
         }
 
     }

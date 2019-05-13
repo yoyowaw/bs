@@ -1,95 +1,37 @@
 package com.youzhihua.bs.dao.entity;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+
 import java.io.Serializable;
 
+@ApiModel
+@Data
 public class Staff implements Serializable {
+
+    @ApiModelProperty("取派员id")
     private String id;
 
+    @ApiModelProperty("取派员m名称")
     private String name;
 
+
+    @ApiModelProperty("取派员电话")
     private String telephone;
 
+
+    @ApiModelProperty("是否有PDA 1有 0 无")
     private String haspda = "0";
 
+
+    @ApiModelProperty("是否删除")
     private String deltag = "0";
 
+    @ApiModelProperty("所属单位")
     private String station;
 
+    @ApiModelProperty("取派标准")
     private String standard;
 
-    private static final long serialVersionUID = 1L;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id == null ? null : id.trim();
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
-    }
-
-    public String getTelephone() {
-        return telephone;
-    }
-
-    public void setTelephone(String telephone) {
-        this.telephone = telephone == null ? null : telephone.trim();
-    }
-
-    public String getHaspda() {
-        return haspda;
-    }
-
-    public void setHaspda(String haspda) {
-        this.haspda = haspda == null ? null : haspda.trim();
-    }
-
-    public String getDeltag() {
-        return deltag;
-    }
-
-    public void setDeltag(String deltag) {
-        this.deltag = deltag == null ? null : deltag.trim();
-    }
-
-    public String getStation() {
-        return station;
-    }
-
-    public void setStation(String station) {
-        this.station = station == null ? null : station.trim();
-    }
-
-    public String getStandard() {
-        return standard;
-    }
-
-    public void setStandard(String standard) {
-        this.standard = standard == null ? null : standard.trim();
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", id=").append(id);
-        sb.append(", name=").append(name);
-        sb.append(", telephone=").append(telephone);
-        sb.append(", haspda=").append(haspda);
-        sb.append(", deltag=").append(deltag);
-        sb.append(", station=").append(station);
-        sb.append(", standard=").append(standard);
-        sb.append(", serialVersionUID=").append(serialVersionUID);
-        sb.append("]");
-        return sb.toString();
-    }
 }

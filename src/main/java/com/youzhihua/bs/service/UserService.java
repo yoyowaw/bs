@@ -3,6 +3,8 @@ package com.youzhihua.bs.service;
 import com.youzhihua.bs.dao.TUserMapper;
 import com.youzhihua.bs.dao.entity.TUser;
 import com.youzhihua.bs.dto.UserLoginDTO;
+import com.youzhihua.bs.utils.Result;
+import com.youzhihua.bs.utils.ResultUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,9 +26,9 @@ public class UserService {
 
 
 
-    public String userLogin(UserLoginDTO userLoginDTO){
+    public Result userLogin(UserLoginDTO userLoginDTO){
         //正确的code
-        String validateCode = (String) session.getAttribute("key");
+        String validateCode = (String) session.getAttribute("code");
 
         String checkCode = userLoginDTO.getCheckCode();
 
@@ -34,19 +36,13 @@ public class UserService {
             //验证码正确
             TUser tUser = tUserMapper.selectByName(userLoginDTO.getUsername());
             if(tUser == null){
-                session.setAttribute("message","用户名错误");
-                return "login";
+                return ResultUtils.error("","用户名或者密码错误");
             }else if(!tUser.getPassword().equals(userLoginDTO.getPassword())){
-                session.setAttribute("message","密码错误");
-                return "login";
+                return ResultUtils.error("","用户名或者密码错误");
             }
-            session.setAttribute("user",tUser);
-            return "index";
+            return ResultUtils.success(tUser);
         }else {
-            //验证码错误
-            session.setAttribute("message","验证码错误");
-            //todo
-            return "login";
+            return ResultUtils.error("","验证码错误");
         }
 
     }
