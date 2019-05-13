@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.youzhihua.bs.dao.TCustomerMapper">
+  <resultMap id="BaseResultMap" type="com.youzhihua.bs.dao.entity.TCustomer">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="station" jdbcType="VARCHAR" property="station" />
+    <result column="telephone" jdbcType="VARCHAR" property="telephone" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="decidedzone_id" jdbcType="VARCHAR" property="decidedzoneId" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_customer
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.youzhihua.bs.dao.entity.TCustomer">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_customer (`name`, station, telephone, 
+      address, decidedzone_id)
+    values (#{name,jdbcType=VARCHAR}, #{station,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{decidedzoneId,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.youzhihua.bs.dao.entity.TCustomer">
+    update t_customer
+    set `name` = #{name,jdbcType=VARCHAR},
+      station = #{station,jdbcType=VARCHAR},
+      telephone = #{telephone,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      decidedzone_id = #{decidedzoneId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, `name`, station, telephone, address, decidedzone_id
+    from t_customer
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, `name`, station, telephone, address, decidedzone_id
+    from t_customer
+  </select>
+
+    <select id="findLink" resultMap="BaseResultMap">
+    select id, `name`, station, telephone, address, decidedzone_id
+    from t_customer where decidedzone_id = #{id}
+  </select>
+
+    <select id="findNotLink" resultMap="BaseResultMap">
+    select id, `name`, station, telephone, address, decidedzone_id
+    from t_customer where decidedzone_id is null
+  </select>
+
+    <update id="clearLink">
+        update t_customer set decidedzone_id = null where decidedzone_id = #{id}
+    </update>
+    <update id="link">
+        update t_customer set decidedzone_id = #{id} where id = #{cid}
+    </update>
+
+    <select id="getCustomerByTelephone"   resultMap="BaseResultMap">
+        select * from t_customer where telephone = #{telephone}
+    </select>
+
+    <select id="getIdByAddress" resultType="java.lang.String">
+        select decidedzone_id as id from t_customer where address = #{address}
+    </select>
+</mapper>

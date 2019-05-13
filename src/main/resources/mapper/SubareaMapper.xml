@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.youzhihua.bs.dao.SubareaMapper">
+  <resultMap id="BaseResultMap" type="com.youzhihua.bs.dao.entity.Subarea">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="decidezone_id" jdbcType="VARCHAR" property="decidezoneId" />
+    <result column="region_id" jdbcType="VARCHAR" property="regionId" />
+    <result column="addresskey" jdbcType="VARCHAR" property="addresskey" />
+    <result column="startnum" jdbcType="VARCHAR" property="startnum" />
+    <result column="endnum" jdbcType="VARCHAR" property="endnum" />
+    <result column="single" jdbcType="CHAR" property="single" />
+    <result column="position" jdbcType="VARCHAR" property="position" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from bc_subarea
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.youzhihua.bs.dao.entity.Subarea">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.String">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into bc_subarea (decidezone_id, region_id, addresskey, 
+      startnum, endnum, single, 
+      `position`)
+    values (#{decidezoneId,jdbcType=VARCHAR}, #{regionId,jdbcType=VARCHAR}, #{addresskey,jdbcType=VARCHAR}, 
+      #{startnum,jdbcType=VARCHAR}, #{endnum,jdbcType=VARCHAR}, #{single,jdbcType=CHAR}, 
+      #{position,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.youzhihua.bs.dao.entity.Subarea">
+    update bc_subarea
+    set decidezone_id = #{decidezoneId,jdbcType=VARCHAR},
+      region_id = #{regionId,jdbcType=VARCHAR},
+      addresskey = #{addresskey,jdbcType=VARCHAR},
+      startnum = #{startnum,jdbcType=VARCHAR},
+      endnum = #{endnum,jdbcType=VARCHAR},
+      single = #{single,jdbcType=CHAR},
+      `position` = #{position,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select id, decidezone_id, region_id, addresskey, startnum, endnum, single, `position`
+    from bc_subarea
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, decidezone_id, region_id, addresskey, startnum, endnum, single, `position`
+    from bc_subarea
+  </select>
+
+    <select id="countItem" resultType="int">
+    select COUNT(*) as count
+    from bc_subarea
+  </select>
+</mapper>

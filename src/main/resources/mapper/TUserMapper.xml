@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.youzhihua.bs.dao.TUserMapper">
+  <resultMap id="BaseResultMap" type="com.youzhihua.bs.dao.entity.TUser">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="salary" jdbcType="DOUBLE" property="salary" />
+    <result column="birthday" jdbcType="DATE" property="birthday" />
+    <result column="gender" jdbcType="VARCHAR" property="gender" />
+    <result column="station" jdbcType="VARCHAR" property="station" />
+    <result column="telephone" jdbcType="VARCHAR" property="telephone" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_user
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.youzhihua.bs.dao.entity.TUser">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.String">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_user (username, `password`, salary, 
+      birthday, gender, station, 
+      telephone, remark)
+    values (#{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{salary,jdbcType=DOUBLE}, 
+      #{birthday,jdbcType=DATE}, #{gender,jdbcType=VARCHAR}, #{station,jdbcType=VARCHAR}, 
+      #{telephone,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.youzhihua.bs.dao.entity.TUser">
+    update t_user
+    set username = #{username,jdbcType=VARCHAR},
+      `password` = #{password,jdbcType=VARCHAR},
+      salary = #{salary,jdbcType=DOUBLE},
+      birthday = #{birthday,jdbcType=DATE},
+      gender = #{gender,jdbcType=VARCHAR},
+      station = #{station,jdbcType=VARCHAR},
+      telephone = #{telephone,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select id, username, `password`, salary, birthday, gender, station, telephone, remark
+    from t_user
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, username, `password`, salary, birthday, gender, station, telephone, remark
+    from t_user
+  </select>
+    <select id="selectByName" parameterType="java.lang.String" resultType="com.youzhihua.bs.dao.entity.TUser">
+        select id, username , `password`  from t_user where t_user.username = #{name}
+    </select>
+
+    <select id="updatePwd" parameterType="com.youzhihua.bs.dao.entity.TUser">
+        update t_user set  password = #{password} where t_user.id = #{id}
+    </select>
+</mapper>

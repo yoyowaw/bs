@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.youzhihua.bs.dao.QpWorkordermanegeMapper">
+  <resultMap id="BaseResultMap" type="com.youzhihua.bs.dao.entity.QpWorkordermanege">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="arrivecity" jdbcType="VARCHAR" property="arrivecity" />
+    <result column="product" jdbcType="VARCHAR" property="product" />
+    <result column="num" jdbcType="INTEGER" property="num" />
+    <result column="floadreqr" jdbcType="VARCHAR" property="floadreqr" />
+    <result column="prodtimelimit" jdbcType="VARCHAR" property="prodtimelimit" />
+    <result column="prodtype" jdbcType="VARCHAR" property="prodtype" />
+    <result column="sendername" jdbcType="VARCHAR" property="sendername" />
+    <result column="senderaddr" jdbcType="VARCHAR" property="senderaddr" />
+    <result column="receivername" jdbcType="VARCHAR" property="receivername" />
+    <result column="receiverphone" jdbcType="VARCHAR" property="receiverphone" />
+    <result column="receiveraddr" jdbcType="VARCHAR" property="receiveraddr" />
+    <result column="feeitemun" jdbcType="INTEGER" property="feeitemun" />
+    <result column="actkweit" jdbcType="DOUBLE" property="actkweit" />
+    <result column="vol" jdbcType="VARCHAR" property="vol" />
+    <result column="managercheck" jdbcType="VARCHAR" property="managercheck" />
+    <result column="updatetime" jdbcType="DATE" property="updatetime" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from qp_workordermanege
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.youzhihua.bs.dao.entity.QpWorkordermanege">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into qp_workordermanege (arrivecity, product, num, 
+      floadreqr, prodtimelimit, prodtype, 
+      sendername, senderaddr, receivername, 
+      receiverphone, receiveraddr, feeitemun, 
+      actkweit, vol, managercheck, 
+      updatetime)
+    values (#{arrivecity,jdbcType=VARCHAR}, #{product,jdbcType=VARCHAR}, #{num,jdbcType=INTEGER}, 
+      #{floadreqr,jdbcType=VARCHAR}, #{prodtimelimit,jdbcType=VARCHAR}, #{prodtype,jdbcType=VARCHAR}, 
+      #{sendername,jdbcType=VARCHAR}, #{senderaddr,jdbcType=VARCHAR}, #{receivername,jdbcType=VARCHAR}, 
+      #{receiverphone,jdbcType=VARCHAR}, #{receiveraddr,jdbcType=VARCHAR}, #{feeitemun,jdbcType=INTEGER}, 
+      #{actkweit,jdbcType=DOUBLE}, #{vol,jdbcType=VARCHAR}, #{managercheck,jdbcType=VARCHAR}, 
+      #{updatetime,jdbcType=DATE})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.youzhihua.bs.dao.entity.QpWorkordermanege">
+    update qp_workordermanege
+    set arrivecity = #{arrivecity,jdbcType=VARCHAR},
+      product = #{product,jdbcType=VARCHAR},
+      num = #{num,jdbcType=INTEGER},
+      floadreqr = #{floadreqr,jdbcType=VARCHAR},
+      prodtimelimit = #{prodtimelimit,jdbcType=VARCHAR},
+      prodtype = #{prodtype,jdbcType=VARCHAR},
+      sendername = #{sendername,jdbcType=VARCHAR},
+      senderaddr = #{senderaddr,jdbcType=VARCHAR},
+      receivername = #{receivername,jdbcType=VARCHAR},
+      receiverphone = #{receiverphone,jdbcType=VARCHAR},
+      receiveraddr = #{receiveraddr,jdbcType=VARCHAR},
+      feeitemun = #{feeitemun,jdbcType=INTEGER},
+      actkweit = #{actkweit,jdbcType=DOUBLE},
+      vol = #{vol,jdbcType=VARCHAR},
+      managercheck = #{managercheck,jdbcType=VARCHAR},
+      updatetime = #{updatetime,jdbcType=DATE}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, arrivecity, product, num, floadreqr, prodtimelimit, prodtype, sendername, 
+    senderaddr, receivername, receiverphone, receiveraddr, feeitemun, actkweit, vol, 
+    managercheck, updatetime
+    from qp_workordermanege
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, arrivecity, product, num, floadreqr, prodtimelimit, prodtype, sendername, 
+    senderaddr, receivername, receiverphone, receiveraddr, feeitemun, actkweit, vol, 
+    managercheck, updatetime
+    from qp_workordermanege
+  </select>
+</mapper>

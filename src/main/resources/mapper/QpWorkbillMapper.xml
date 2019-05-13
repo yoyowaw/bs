@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.youzhihua.bs.dao.QpWorkbillMapper">
+  <resultMap id="BaseResultMap" type="com.youzhihua.bs.dao.entity.QpWorkbill">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="noticebill_id" jdbcType="INTEGER" property="noticebillId" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="pickstate" jdbcType="VARCHAR" property="pickstate" />
+    <result column="buildtime" jdbcType="TIMESTAMP" property="buildtime" />
+    <result column="attachbilltimes" jdbcType="INTEGER" property="attachbilltimes" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="staff_id" jdbcType="INTEGER" property="staffId" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from qp_workbill
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.youzhihua.bs.dao.entity.QpWorkbill">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into qp_workbill (noticebill_id, `type`, pickstate, 
+      buildtime, attachbilltimes, remark, 
+      staff_id)
+    values (#{noticebillId,jdbcType=INTEGER}, #{type,jdbcType=VARCHAR}, #{pickstate,jdbcType=VARCHAR}, 
+      #{buildtime,jdbcType=TIMESTAMP}, #{attachbilltimes,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, 
+      #{staffId,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.youzhihua.bs.dao.entity.QpWorkbill">
+    update qp_workbill
+    set noticebill_id = #{noticebillId,jdbcType=INTEGER},
+      `type` = #{type,jdbcType=VARCHAR},
+      pickstate = #{pickstate,jdbcType=VARCHAR},
+      buildtime = #{buildtime,jdbcType=TIMESTAMP},
+      attachbilltimes = #{attachbilltimes,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
+      staff_id = #{staffId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, noticebill_id, `type`, pickstate, buildtime, attachbilltimes, remark, 
+    staff_id
+    from qp_workbill
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, noticebill_id, `type`, pickstate, buildtime, attachbilltimes, remark, 
+    staff_id
+    from qp_workbill
+  </select>
+</mapper>
