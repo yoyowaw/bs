@@ -2,8 +2,10 @@ package com.youzhihua.bs.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
-@ApiModel("用户登录请求参数")
+@ApiModel("用户登录返回参数")
+@Data
 public class UserLoginDTO {
 
     @ApiModelProperty("验证码")
@@ -14,6 +16,12 @@ public class UserLoginDTO {
 
     @ApiModelProperty("密码")
     private String password;
+
+    @ApiModelProperty("角色名称")
+    private String name;
+
+    @ApiModelProperty("角色id")
+    private Integer roleId;
 
     public UserLoginDTO() {
     }

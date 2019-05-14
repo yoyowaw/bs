@@ -7,10 +7,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -24,21 +21,21 @@ public class RegionController {
     private RegionService regionService;
 
     @ApiOperation("区域导入")
-    @RequestMapping("/regionAction_importXls.action")
+    @PostMapping("/regionAction_importXls.action")
     public void importXls(@RequestParam("regionFile")MultipartFile regionFile) throws IOException {
         regionService.impotRrgion(regionFile);
     }
 
     //取派员分页查询
     @ApiOperation("区派员分页查询")
-    @RequestMapping("/regionAction_pageQuery")
+    @GetMapping("/regionAction_pageQuery")
     @ResponseBody
     public PageBean<Region> selectList(int page, int rows){
         PageBean<Region> itemByPage = regionService.findItemByPage(page, rows);
         return itemByPage;
     }
 
-    @RequestMapping("/regionAction_listajax.action")
+    @GetMapping("/regionAction_listajax.action")
     @ResponseBody
     @ApiOperation("获取分区列表")
     public List<Region> list(){

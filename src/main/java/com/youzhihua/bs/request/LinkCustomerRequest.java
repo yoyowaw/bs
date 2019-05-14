@@ -1,4 +1,4 @@
-package com.youzhihua.request;
+package com.youzhihua.bs.request;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

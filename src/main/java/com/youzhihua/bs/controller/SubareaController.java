@@ -1,27 +1,28 @@
 package com.youzhihua.bs.controller;
 
-import com.sun.deploy.net.HttpResponse;
-import com.youzhihua.bs.dao.entity.Region;
 import com.youzhihua.bs.dao.entity.Subarea;
 import com.youzhihua.bs.dto.SubareaQueryContion;
 import com.youzhihua.bs.service.SubareaService;
 import com.youzhihua.bs.utils.PageBean;
+import com.youzhihua.bs.utils.Result;
+import com.youzhihua.bs.utils.ResultUtils;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiOperation;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@Controller
+@RestController
+@Api(value = "定区管理",tags = "定区管理")
 public class SubareaController {
 
     @Autowired
@@ -29,14 +30,16 @@ public class SubareaController {
     @Autowired
     private HttpServletRequest servletRequest;
 
-    @RequestMapping("/su")
-    public String add(Subarea subarea){
+    @PostMapping("/su-add")
+    @ApiModelProperty("添加定区")
+    public Result add(@RequestBody Subarea subarea){
         subareaService.save( subarea);
-        return "/WEB-INF/pages/base/subarea";
+        return ResultUtils.success();
     }
 
-    @RequestMapping("/subareaAction_pageQuery")
+    @GetMapping("/subareaAction_pageQuery")
     @ResponseBody
+    @ApiOperation("查找分区")
     public PageBean<Subarea>  queryList(
             String addresskey, int page, int rows){
         String province = servletRequest.getParameter("region.province");
@@ -47,7 +50,8 @@ public class SubareaController {
         return all;
     }
 
-    @RequestMapping("/subareaAction_export")
+    @GetMapping("/subareaAction_export")
+    @ApiOperation(value = "导出分区")
     public void export(HttpServletResponse response) throws IOException {
         List<Subarea> subareas = subareaService.queryAll();
         HSSFWorkbook workbook = new HSSFWorkbook();
@@ -75,15 +79,16 @@ public class SubareaController {
 
     }
 
-    @RequestMapping("/subareaAction_list")
-    @ResponseBody
+    @GetMapping("/subareaAction_list")
+    @ApiOperation("定区列表")
     public List<Subarea> list(){
         return subareaService.queryAll();
     }
 
     @ResponseBody
-    @RequestMapping("/subarea_findList")
-    public List<Subarea> findList(@RequestParam("id") String id){
+    @ApiOperation("根据id查找分区")
+    @RequestMapping("/subarea_findList/{id}")
+    public List<Subarea> findList(@PathVariable("id") String id){
         return subareaService.findList(id);
     }
 

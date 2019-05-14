@@ -1,7 +1,5 @@
-package com.youzhihua.request;
+package com.youzhihua.bs.request;
 
-import com.youzhihua.bs.dao.entity.Region;
-import com.youzhihua.bs.dao.entity.Staff;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

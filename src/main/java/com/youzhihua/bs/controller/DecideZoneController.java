@@ -5,19 +5,16 @@ import com.youzhihua.bs.service.DecidedzoneServece;
 import com.youzhihua.bs.utils.PageBean;
 import com.youzhihua.bs.utils.Result;
 import com.youzhihua.bs.utils.ResultUtils;
-import com.youzhihua.request.AddDecideZoneRequest;
+import com.youzhihua.bs.request.AddDecideZoneRequest;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
 @RestController
-@Api("定区管理")
+@Api(value = "定区管理",tags = "定区")
 public class DecideZoneController {
     @Autowired
     private DecidedzoneServece decidedzoneServece;
@@ -32,7 +29,7 @@ public class DecideZoneController {
         return ResultUtils.success();
     }
 
-    @RequestMapping("/decidedzone_list")
+    @GetMapping("/decidedzone_list")
     @ResponseBody
     public PageBean<Decidedzone> list(int page, int rows){
         PageBean<Decidedzone> itemByPage = decidedzoneServece.findItemByPage(page, rows);

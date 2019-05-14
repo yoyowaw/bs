@@ -1,16 +1,14 @@
 package com.youzhihua.bs.controller;
 
-import com.sun.deploy.net.HttpResponse;
 import com.youzhihua.bs.dao.entity.TUser;
 import com.youzhihua.bs.dto.UserLoginDTO;
 import com.youzhihua.bs.service.UserService;
 import com.youzhihua.bs.utils.Result;
-import com.youzhihua.request.UserLoginRequest;
+import com.youzhihua.bs.request.UserLoginRequest;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -27,7 +25,8 @@ public class UserController {
     public Result<UserLoginDTO> uerLogin(@RequestBody UserLoginRequest request){
         UserLoginDTO userLoginDTO = new UserLoginDTO();
         BeanUtils.copyProperties(request,userLoginDTO);
-        return userService.userLogin(userLoginDTO);
+        Result<UserLoginDTO> result = userService.userLogin(userLoginDTO);
+        return result;
     }
 
     //用户注销
@@ -49,4 +48,5 @@ public class UserController {
             return false;
         }
     }
+
 }

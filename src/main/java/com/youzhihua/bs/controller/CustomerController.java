@@ -1,6 +1,6 @@
 package com.youzhihua.bs.controller;
 
-import com.youzhihua.request.LinkCustomerRequest;
+import com.youzhihua.bs.request.LinkCustomerRequest;
 import com.youzhihua.bs.dao.entity.TCustomer;
 import com.youzhihua.bs.service.CustomerService;
 import io.swagger.annotations.Api;
@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/customer")
-@Api("客户管理")
+@Api(value = "客户管理",tags = "客户管理")
 public class CustomerController {
 
     @Autowired
@@ -58,7 +58,7 @@ public class CustomerController {
         return customerService.findCustomerByTelephone(split[1]);
     }
 
-    @RequestMapping("find-id-by-address")
+    @PostMapping("find-id-by-address")
     @ResponseBody
     @ApiOperation("根据地址获取客户id")
     public String findIdByAddress(@RequestBody String address){

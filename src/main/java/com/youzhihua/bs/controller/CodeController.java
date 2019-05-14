@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
  * @Author youzhihua
  * @Date 2019/5/13 21:49
  */
-@Api("验证码接口")
+@Api(value = "验证码接口" ,tags = "验证码")
 @RestController
 @RequestMapping("/code")
 public class CodeController {

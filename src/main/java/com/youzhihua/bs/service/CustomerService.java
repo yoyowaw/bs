@@ -1,8 +1,8 @@
 package com.youzhihua.bs.service;
 
-import com.youzhihua.request.LinkCustomerRequest;
 import com.youzhihua.bs.dao.TCustomerMapper;
 import com.youzhihua.bs.dao.entity.TCustomer;
+import com.youzhihua.bs.request.LinkCustomerRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

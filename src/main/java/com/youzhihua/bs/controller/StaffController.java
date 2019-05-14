@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@Api("取派员管理")
+@Api(value = "取派员管理",tags = "取派员管理")
 @RequestMapping("/staff")
 public class StaffController {
 
@@ -29,13 +29,13 @@ public class StaffController {
 
     //取派员分页查询
     @ApiOperation("区派员分页查询")
-    @RequestMapping("/staffAction_pageQuery")
+    @GetMapping("/staffAction_pageQuery")
     public PageBean<Staff> selectList(int page, int rows){
         PageBean<Staff> itemByPage = staffService.findItemByPage(page, rows);
         return itemByPage;
     }
 
-    @RequestMapping("/staff_query")
+    @GetMapping("/staff_query")
     @ApiOperation("取派员列表")
     public List<Staff> findAll(){
         return staffService.findAll();
@@ -44,7 +44,7 @@ public class StaffController {
 
     //删除员工
     @ApiOperation("删除取派员")
-    @RequestMapping("staffAction_delete/{ids}")
+    @GetMapping("staffAction_delete/{ids}")
     public Boolean deleteStaff(@PathVariable(value = "ids")@ApiParam("取派员id列表") String ids){
         staffService.deleteStaff(ids);
         return true;
