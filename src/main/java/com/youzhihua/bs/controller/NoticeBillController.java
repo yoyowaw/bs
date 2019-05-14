@@ -8,6 +8,7 @@ import com.youzhihua.bs.utils.ResultUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,9 +32,15 @@ public class NoticeBillController {
         return ResultUtils.success();
     }
 
-    @PostMapping("work_add")
+    @PostMapping("/work_add")
     public String addwork(QpWorkordermanege qpWorkbill){
         service.addwork(qpWorkbill);
         return "/WEB-INF/pages/qupai/quickworkorder";
+    }
+
+    @GetMapping("/get-notice-bill-list")
+    public Result getBill(int page, int rows){
+        //service.findBills(page,rows);
+        return ResultUtils.success();
     }
 }

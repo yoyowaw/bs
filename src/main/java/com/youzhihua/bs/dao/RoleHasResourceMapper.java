@@ -2,6 +2,9 @@ package com.youzhihua.bs.dao;
 
 import com.youzhihua.bs.dao.entity.RoleHasResource;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * @Author youzhihua
@@ -12,4 +15,5 @@ public interface RoleHasResourceMapper {
 
     int insert(RoleHasResource roleHasResource);
 
+    List<RoleHasResource> selectByRoleId(@Param("roleId") Integer roleId);
 }

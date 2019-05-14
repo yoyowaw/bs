@@ -5,4 +5,9 @@
     <select id="selectByUserId" resultType="com.youzhihua.bs.dao.entity.TUserRole">
         select * from t_user_role where user_id = #{userId}
     </select>
+
+    <insert id="insert" parameterType="com.youzhihua.bs.dao.entity.TUserRole">
+          insert into t_user_role (role_id, user_id)
+    values (#{roleId}, #{userId})
+    </insert>
 </mapper>

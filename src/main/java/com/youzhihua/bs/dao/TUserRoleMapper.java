@@ -16,4 +16,5 @@ public interface TUserRoleMapper {
     List<TUserRole> selectByUserId(@Param("userId") Integer userId);
 
 
+    void insert(TUserRole userRole);
 }

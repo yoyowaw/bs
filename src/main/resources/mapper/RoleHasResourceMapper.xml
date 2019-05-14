@@ -6,4 +6,8 @@
     values (#{roleId},#{resourceIds,jdbcType=VARCHAR})
     </insert>
 
+    <select id="selectByRoleId" resultType="com.youzhihua.bs.dao.entity.RoleHasResource">
+        select * from t_role_has_resource where role_id = #{roleId}
+    </select>
+
 </mapper>

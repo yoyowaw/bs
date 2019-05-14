@@ -2,6 +2,7 @@ package com.youzhihua.bs.dao;
 
 import com.youzhihua.bs.dao.entity.Decidedzone;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -18,4 +19,6 @@ public interface DecidedzoneMapper {
     int updateByPrimaryKey(Decidedzone record);
 
     int countItem();
+
+    int deleteByRId(@Param("id") String id);
 }

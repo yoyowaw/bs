@@ -31,7 +31,7 @@ public class DecideZoneController {
 
     @GetMapping("/decidedzone_list")
     @ResponseBody
-    public PageBean<Decidedzone> list(int page, int rows){
+    public PageBean<Decidedzone> list(Integer page, Integer rows){
         PageBean<Decidedzone> itemByPage = decidedzoneServece.findItemByPage(page, rows);
         return itemByPage;
     }

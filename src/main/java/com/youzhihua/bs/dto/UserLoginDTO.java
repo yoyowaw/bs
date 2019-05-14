@@ -8,6 +8,8 @@ import lombok.Data;
 @Data
 public class UserLoginDTO {
 
+
+    private Integer userId;
     @ApiModelProperty("验证码")
     private String checkCode;
 

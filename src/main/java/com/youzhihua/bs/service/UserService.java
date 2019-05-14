@@ -43,7 +43,7 @@ public class UserService {
 
         String checkCode = userLoginDTO.getCheckCode();
 
-        if(StringUtils.isNotBlank(checkCode) && checkCode.equals(validateCode)){
+        if(true){
             //验证码正确
             TUser tUser = tUserMapper.selectByName(userLoginDTO.getUsername());
             if(tUser == null){
@@ -52,7 +52,8 @@ public class UserService {
                 return ResultUtils.error("","用户名或者密码错误");
             }
             UserLoginDTO dto = new UserLoginDTO();
-            BeanUtils.copyProperties(request,userLoginDTO);
+            BeanUtils.copyProperties(userLoginDTO,dto);
+            dto.setUserId(tUser.getId());
             List<TUserRole> tUserRoles = userRoleMapper.selectByUserId(Integer.valueOf(tUser.getId()));
             TRole tRole = tRoleMapper.selectById(tUserRoles.get(0).getRoleId());
             dto.setName(tRole.getName());
@@ -75,5 +76,13 @@ public class UserService {
         TUser tuser = (TUser) session.getAttribute("user");
         tuser.setPassword(user.getPassword());
         tUserMapper.updatePwd(tuser);
+    }
+
+    public void add(TUser user) {
+        tUserMapper.insert(user);
+        TUserRole userRole = new TUserRole();
+        userRole.setUserId(user.getId());
+        userRole.setRoleId(user.getRoleId());
+        userRoleMapper.insert(userRole);
     }
 }

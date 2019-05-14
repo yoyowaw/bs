@@ -3,6 +3,8 @@ package com.youzhihua.bs.controller;
 import com.youzhihua.bs.dao.entity.Region;
 import com.youzhihua.bs.service.RegionService;
 import com.youzhihua.bs.utils.PageBean;
+import com.youzhihua.bs.utils.Result;
+import com.youzhihua.bs.utils.ResultUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +32,7 @@ public class RegionController {
     @ApiOperation("区派员分页查询")
     @GetMapping("/regionAction_pageQuery")
     @ResponseBody
-    public PageBean<Region> selectList(int page, int rows){
+    public PageBean<Region> selectList(Integer page, Integer rows){
         PageBean<Region> itemByPage = regionService.findItemByPage(page, rows);
         return itemByPage;
     }
@@ -40,6 +42,26 @@ public class RegionController {
     @ApiOperation("获取分区列表")
     public List<Region> list(){
         return regionService.findAll();
+    }
+
+    //删除分页
+    @GetMapping("/del-region/{id}")
+    @ResponseBody
+    public Result del(@PathVariable("id") String id){
+        regionService.delRegion(id);
+        return ResultUtils.success();
+    }
+
+    @PostMapping("/add-region")
+    public Result add(@RequestBody Region region){
+        regionService.add(region);
+        return ResultUtils.success();
+    }
+
+    @PostMapping("/edit-region")
+    public Result edit(@RequestBody Region region){
+        regionService.edit(region);
+        return ResultUtils.success();
     }
 
 }

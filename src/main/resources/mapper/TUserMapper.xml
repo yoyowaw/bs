@@ -16,7 +16,7 @@
     delete from t_user
     where id = #{id,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.youzhihua.bs.dao.entity.TUser">
+  <insert id="insert" parameterType="com.youzhihua.bs.dao.entity.TUser"   useGeneratedKeys="true" keyProperty="roleId">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.String">
       SELECT LAST_INSERT_ID()
     </selectKey>

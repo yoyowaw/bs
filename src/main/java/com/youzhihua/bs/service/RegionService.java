@@ -1,6 +1,7 @@
 package com.youzhihua.bs.service;
 
 import com.github.pagehelper.PageHelper;
+import com.youzhihua.bs.dao.DecidedzoneMapper;
 import com.youzhihua.bs.dao.RegionMapper;
 import com.youzhihua.bs.dao.entity.Region;
 import com.youzhihua.bs.utils.PageBean;
@@ -22,6 +23,8 @@ public class RegionService {
 
     @Autowired
     private RegionMapper regionMapper;
+    @Autowired
+    private DecidedzoneMapper decidedzoneMapper;
 
     public void impotRrgion(MultipartFile file) throws IOException {
 
@@ -68,5 +71,18 @@ public class RegionService {
 
     public List<Region> findAll() {
         return regionMapper.selectAll();
+    }
+
+    public void delRegion(String id) {
+        regionMapper.deleteByPrimaryKey(id);
+        decidedzoneMapper.deleteByRId(id);
+    }
+
+    public void add(Region region) {
+        regionMapper.insert(region);
+    }
+
+    public void edit(Region region){
+        regionMapper.updateByPrimaryKey(region);
     }
 }
