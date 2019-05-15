@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="./css/layui.css">
+  <link rel="stylesheet" href="./css/view4.css">
+  <script src="./js/layui.js"></script>
+  <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="option">
+      <button class="layui-btn layui-btn-primary " onclick="add()">增加</button>
+      <button class="layui-btn layui-btn-normal select">查询</button>
+    </div>
+
+    <table class="layui-table">
+      <colgroup class="col">
+        <col width="100">
+        <col width="100">
+        <col width="100">
+        <col width="100">
+        <col width="100">
+        <col width="100">
+        <col width="100">
+        <col width="100">
+        <col width="100">
+      </colgroup>
+      <thead class="thead">
+        <tr>
+          <th>序号</th>
+          <th>取派员名称</th>
+          <th>电话</th>
+          <th>是否有PDA</th>
+          <th>所属单位</th>
+          <th>取派标准</th>
+          <th>是否注销</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody class="tbody">
+
+      </tbody>
+    </table>
+
+    <div class="page-wrap">
+      <div id="page"></div>
+      <div class="total" ></div>
+    </div>
+
+    <div class="mask"></div>
+    <div class="update">
+      <ul>
+        <li>
+          <label class="layui-form-label">区域编码</label>
+          <input type="text" name="id" required lay-verify="required" disabled placeholder="请输入区域编码" autocomplete="off"
+            class="layui-input id">
+        </li>
+        <li>
+          <label class="layui-form-label">省</label>
+          <input type="text" name="province" required lay-verify="required" placeholder="请输入省" autocomplete="off"
+            class="layui-input province">
+        </li>
+        <li>
+          <label class="layui-form-label">市</label>
+          <input type="text" name="city" required lay-verify="required" placeholder="请输入市" autocomplete="off"
+            class="layui-input city">
+        </li>
+        <li>
+          <label class="layui-form-label">区</label>
+          <input type="text" name="district" required lay-verify="required" placeholder="请输入区" autocomplete="off"
+            class="layui-input district">
+        </li>
+        <li>
+          <label class="layui-form-label">邮编</label>
+          <input type="text" name="postcode" required lay-verify="required" placeholder="请输入邮编" autocomplete="off"
+            class="layui-input postcode">
+        </li>
+        <li>
+          <label class="layui-form-label">简码</label>
+          <input type="text" name="shortcode" required lay-verify="required" placeholder="请输入简码" autocomplete="off"
+            class="layui-input shortcode">
+        </li>
+        <li>
+          <label class="layui-form-label">城市编码</label>
+          <input type="text" name="citycode" required lay-verify="required" placeholder="请输入城市编码" autocomplete="off"
+            class="layui-input citycode">
+        </li>
+        <li class="last">
+          <button class="layui-btn put">修改</button>
+          <button class="layui-btn  layui-btn-primary" onclick="cancel()">取消</button>
+        </li>
+      </ul>
+    </div>
+
+    <div class="add">
+      <ul>
+        <li>
+          <label class="layui-form-label">区域编码</label>
+          <input type="text" name="id" required lay-verify="required" disabled placeholder="请输入区域编码" autocomplete="off"
+            class="layui-input id">
+        </li>
+        <li>
+          <label class="layui-form-label">省</label>
+          <input type="text" name="province" required lay-verify="required" placeholder="请输入省" autocomplete="off"
+            class="layui-input province">
+        </li>
+        <li>
+          <label class="layui-form-label">市</label>
+          <input type="text" name="city" required lay-verify="required" placeholder="请输入市" autocomplete="off"
+            class="layui-input city">
+        </li>
+        <li>
+          <label class="layui-form-label">区</label>
+          <input type="text" name="district" required lay-verify="required" placeholder="请输入区" autocomplete="off"
+            class="layui-input district">
+        </li>
+        <li>
+          <label class="layui-form-label">邮编</label>
+          <input type="text" name="postcode" required lay-verify="required" placeholder="请输入邮编" autocomplete="off"
+            class="layui-input postcode">
+        </li>
+        <li>
+          <label class="layui-form-label">简码</label>
+          <input type="text" name="shortcode" required lay-verify="required" placeholder="请输入简码" autocomplete="off"
+            class="layui-input shortcode">
+        </li>
+        <li>
+          <label class="layui-form-label">城市编码</label>
+          <input type="text" name="citycode" required lay-verify="required" placeholder="请输入城市编码" autocomplete="off"
+            class="layui-input citycode">
+        </li>
+        <li class="last">
+          <button class="layui-btn add">增加</button>
+          <button class="layui-btn  layui-btn-primary" onclick="cancel()">取消</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    let page = 1, rows = 10;
+    let list = [];
+    $(function () {
+      $.ajax({
+        url: 'http://localhost:4000/region',
+        method: 'GET',
+        data: {
+          page,
+          rows
+        },
+        success: successed
+      })
+
+      $('.update').hide()
+      $('.add').hide()
+      $('.mask').hide()
+
+
+      $('.put').click(function () {
+        let id = $('.id').val()
+        let province = $('.province').val()
+        let city = $('.city').val()
+        let district = $('.district').val()
+        let postcode = $('.postcode').val()
+        let shortcode = $('.shortcode').val()
+        let citycode = $('.citycode').val()
+        $.ajax({
+          url: 'http://localhost:4000/update',
+          data: {
+            id,
+            province,
+            city,
+            district,
+            postcode,
+            shortcode,
+            citycode
+          },
+          method: 'POST',
+          success: res => {
+            if (res.success) alert('修改成功');
+            $('.update').hide()
+            $('.mask').hide()
+            window.location.href = './1.html'
+          }
+        })
+      })
+    })
+
+    function add(){
+      $('.add').show()
+      $('.mask').show()
+      console.log(1)
+    }
+
+    function cancel() {
+      $('.update').hide();
+      $('.mask').hide();
+    }
+    function update(id) {
+      $('.update').show();
+      $('.mask').show();
+      $('.id').val(id)
+      let found = list.find(item => item.id === id)
+      console.log(found)
+      let { province, city, district, postcode, shortcode, citycode } = found
+      $('.province').val(province)
+      $('.city').val(city)
+      $('.district').val(district)
+      $('.postcode').val(postcode)
+      $('.shortcode').val(shortcode)
+      $('.citycode').val(citycode)
+    }
+
+    function successed(res) {
+      let s = insert(res.rows)
+      $('.tbody').html(s)
+      $('.total').text('共:' + res.total)
+      layui.use('laypage', function () {
+        let laypage = layui.laypage;
+        laypage.render({
+          elem: 'page',
+          count: res.total,
+          limit: res.pageSize,
+          groups: 3,
+          jump: (obj, first) => {
+            page = obj.curr
+            $.ajax({
+              url: 'http://localhost:4000/region',
+              method: 'GET',
+              data: {
+                page,
+                rows
+              },
+              success: data => {
+                $('.tbody').html('')
+                let s = insert(data.rows)
+                list = [...list, ...data.rows]
+                $('.tbody').html(s)
+                $('.del').each((i, ele) => {
+                  $(ele).click(function () {
+                    let id = $(this).data('id')
+                    del(id)
+                  })
+                })
+                $('.put').each((i, ele) => {
+                  $(ele).click(function () {
+                    let id = $(this).data('id')
+                    update(id)
+                  })
+                })
+              }
+            })
+          }
+        });
+      });
+    }
+
+    function del(id) {
+      $.ajax({
+        url: 'http://localhost:4000/del?id=' + id,
+        method: "GET",
+        contentType: false,
+        processData: false,
+        success: res => {
+          if (!res.success) return alert('删除失败')
+          alert('删除成功')
+          $.ajax({
+            url: 'http://localhost:4000/region',
+            method: 'GET',
+            data: {
+              page,
+              rows
+            },
+            success: successed
+          })
+        }
+      })
+    }
+
+    function insert(arr) {
+      let s = '';
+      arr.forEach((item, index) => {
+        s += `<tr >
+              <td>${index + 1}</td>
+              <td>${item.id}</td>
+              <td>${item.province}</td>
+              <td>${item.city}</td>
+              <td>${item.district}</td>
+              <td>${item.postcode}</td>
+              <td>${item.shortcode}</td>
+              <td>${item.citycode}</td>
+              <td>
+                <button class="layui-btn layui-btn-normal layui-btn-xs put"  data-id='${item.id}'>修改</button> 
+                <button class="layui-btn  layui-btn-xs layui-btn-danger del"   data-id='${item.id}'>删除</button> </td>
+            </tr>`
+      });
+      return s;
+    }
+  </script>
+</body>
+
+</html>

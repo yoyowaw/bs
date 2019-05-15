@@ -1,0 +1,72 @@
+@charset "utf-8";
+.page-wrap{
+  display: flex;
+  height: 60px;
+  align-items: center;
+  justify-content: center;
+}
+#page{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.wrap{
+  padding-bottom: 50px;
+}
+.option{
+  display: flex;
+  padding: 10px;
+  justify-content: flex-end;
+}
+.layui-table, .thead tr th{
+  text-align: center;
+}
+
+.total{
+  width: 50px;
+  height: 30px;
+  box-sizing: border-box;
+  margin-left: 10px;
+  line-height: 30px;
+  color: #666;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  text-align: center;
+}
+.update, .add{
+  position: fixed;
+  width: 400px;
+  height: 420px;
+  top: 50%;
+  margin-top: -210px;
+  left: 50%;
+  margin-left: -200px;
+  border: 1px solid #ddd;
+  background: #fff;
+  box-sizing: border-box;
+  padding: 10px;
+  border-radius: 5px;
+  z-index: 999;
+}
+.update ul li, .add ul li{
+  margin: 10px 0;
+}
+.update ul li.last, .add ul li.last{
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+}
+.update ul li.last button:last-child, .add ul li.last button:last-child{
+  margin-left: 70px;
+}
+.layui-input{
+  width: 240px;
+}
+.mask{
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.4)
+}
