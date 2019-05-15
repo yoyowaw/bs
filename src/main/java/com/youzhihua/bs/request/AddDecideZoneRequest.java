@@ -12,6 +12,8 @@ import lombok.Data;
 @ApiModel("添加定区请求参数")
 public class AddDecideZoneRequest {
 
+    private String id;
+
     @ApiModelProperty("定区名称")
     private String name;
 

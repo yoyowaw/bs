@@ -11,6 +11,12 @@ public class Decidedzone implements Serializable {
 
     private String name;
 
+    private String staffName;
+
+    private String staffStation;
+
+    private String staffTelephone;
+
     private String staffId;
 
     private String subareaid;

@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
-@Api("区域管理")
+@Api("分区管理")
 public class RegionController {
 
     @Autowired

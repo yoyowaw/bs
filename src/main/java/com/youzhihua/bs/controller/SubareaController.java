@@ -22,7 +22,7 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
-@Api(value = "定区管理",tags = "定区管理")
+@Api(value = "分区管理",tags = "定区管理")
 public class SubareaController {
 
     @Autowired

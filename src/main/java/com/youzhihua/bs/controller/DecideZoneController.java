@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @RestController
 @Api(value = "定区管理",tags = "定区")
@@ -33,7 +34,19 @@ public class DecideZoneController {
     @ResponseBody
     public PageBean<Decidedzone> list(Integer page, Integer rows){
         PageBean<Decidedzone> itemByPage = decidedzoneServece.findItemByPage(page, rows);
+
         return itemByPage;
     }
 
+    @GetMapping("/del-decidedzone/{id}")
+    public Result del(@PathVariable("id") String id){
+        decidedzoneServece.del(id);
+        return ResultUtils.success();
+    }
+
+    @RequestMapping("/edit-decidezone")
+    public Result edit(@RequestBody AddDecideZoneRequest request){
+        decidedzoneServece.edit(request);
+        return ResultUtils.success();
+    }
 }

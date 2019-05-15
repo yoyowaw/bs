@@ -38,11 +38,24 @@ public class DecidedzoneServece {
             if(allItem.getStaffId()!=null){
                 Staff staff = staffMapper.selectByPrimaryKey(allItem.getStaffId());
                 allItem.setStaff(staff);
+                allItem.setStaffName(staff.getName());
+                allItem.setStaffStation(staff.getStation());
+                allItem.setStaffTelephone(staff.getTelephone());
             }
         }
         int countNums = mapper.countItem();            //总记录数
         PageBean<Decidedzone> pageData = new PageBean<>(page, rows, countNums);
         pageData.setRows(allItems);
         return pageData;
+    }
+
+    public void del(String id) {
+        mapper.deleteByPrimaryKey(id);
+    }
+
+    public void edit(AddDecideZoneRequest request) {
+        Decidedzone decidedzone1 = new Decidedzone();
+        BeanUtils.copyProperties(request,decidedzone1);
+        mapper.updateByPrimaryKey(decidedzone1);
     }
 }
