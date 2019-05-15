@@ -14,6 +14,7 @@ import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @Author youzhihua
@@ -31,7 +32,7 @@ public class RoleService {
     @Autowired
     private TResourceMapper tResourceMapper;
 
-    public void addRule( AddRuleRequest request){
+    public void addRule(AddRuleRequest request) {
         TRole role = new TRole();
         role.setName(request.getName());
         tRoleMapper.insert(role);
@@ -43,20 +44,21 @@ public class RoleService {
 
     public List<TResource> getById(Integer roleId) {
         List<RoleHasResource> roleHasResources = roleHasResourceMapper.selectByRoleId(roleId);
-        if(CollectionUtils.isEmpty(roleHasResources)){
+        if (CollectionUtils.isEmpty(roleHasResources)) {
             return null;
         }
         List<TResource> result = new ArrayList();
         String[] split = roleHasResources.get(0).getResourceIds().split(",");
         for (String s : split) {
             TResource byid = tResourceMapper.getByid(Integer.valueOf(s));
-            result.add(byid);
+            if (byid != null)
+                result.add(byid);
         }
         List<TResource> response = new ArrayList();
         for (TResource tResource : result) {
-            if (tResource.getParent()==null || tResource.getParent() == 0){
+            if (tResource.getParent() == null || tResource.getParent() == 0) {
                 TResource resource = new TResource();
-                BeanUtils.copyProperties(tResource,resource);
+                BeanUtils.copyProperties(tResource, resource);
                 response.add(tResource);
             }
         }
@@ -64,7 +66,7 @@ public class RoleService {
         for (TResource tResource : response) {
             List<TResource> resources = new ArrayList<>();
             for (TResource tResource1 : result) {
-                if(tResource.getId() != tResource1.getId()&&tResource.getId() == tResource1.getParent()){
+                if (tResource.getId() != tResource1.getId() && tResource.getId() == tResource1.getParent()) {
                     resources.add(tResource1);
                 }
             }
@@ -76,10 +78,8 @@ public class RoleService {
             List<TResource> resources = new ArrayList<>();
             for (TResource resource : tResource.getTResource()) {
                 for (TResource tResource1 : result) {
-                    if(tResource.getTResource()!=null){
-                        if(tResource1.getParent() == resource.getId()){
-                            resources.add(tResource1);
-                        }
+                    if (tResource1.getParent() == resource.getId()) {
+                        resources.add(tResource1);
                     }
 
                 }

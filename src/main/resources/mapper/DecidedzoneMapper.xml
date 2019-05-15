@@ -39,6 +39,6 @@
     </select>
 
     <delete id="deleteByRId">
-        delete from bc_decidedzone where region_id = #{id}
+        delete from bc_subarea where region_id = #{id}
     </delete>
 </mapper>
