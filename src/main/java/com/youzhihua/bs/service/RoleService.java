@@ -1,12 +1,12 @@
 package com.youzhihua.bs.service;
 
-import com.youzhihua.bs.dao.RoleHasResourceMapper;
-import com.youzhihua.bs.dao.TResourceMapper;
-import com.youzhihua.bs.dao.TRoleMapper;
+import com.github.pagehelper.PageHelper;
+import com.youzhihua.bs.dao.*;
 import com.youzhihua.bs.dao.entity.RoleHasResource;
 import com.youzhihua.bs.dao.entity.TResource;
 import com.youzhihua.bs.dao.entity.TRole;
 import com.youzhihua.bs.request.AddRuleRequest;
+import com.youzhihua.bs.utils.PageBean;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,9 +32,24 @@ public class RoleService {
     @Autowired
     private TResourceMapper tResourceMapper;
 
+    @Autowired
+    private TUserMapper tUserMapper;
+    @Autowired
+    private TUserRoleMapper tUserRoleMapper;
+
     public void addRule(AddRuleRequest request) {
+        String menuIds = request.getMenuIds();
+        String[] split = menuIds.split(",");
+        for (String s : split) {
+            TResource byid = tResourceMapper.getByid(Integer.valueOf(s));
+            if (byid!=null&&byid.getParent()!=null&&byid.getParent()!=0){
+                menuIds = menuIds + ","+byid.getParent();
+            }
+        }
+        request.setMenuIds(menuIds);
         TRole role = new TRole();
         role.setName(request.getName());
+        role.setDesc(request.getDesc());
         tRoleMapper.insert(role);
         RoleHasResource resource = new RoleHasResource();
         resource.setRoleId(role.getRoleId());
@@ -91,7 +106,38 @@ public class RoleService {
     }
 
     public List<TResource> findMenu() {
-        List<TResource> list = tResourceMapper.findAll();
-        return list;
+        List<TResource> result = tResourceMapper.findAllList();
+        List<TResource> response = new ArrayList();
+        for (TResource tResource : result) {
+            if (tResource.getParent() != null || tResource.getParent() != 0) {
+                TResource resource = new TResource();
+                BeanUtils.copyProperties(tResource, resource);
+                response.add(tResource);
+            }
+        }
+        return response;
+    }
+
+    public PageBean<TRole> selectAll(Integer page, Integer rows) {
+        //设置分页信息，分别是当前页数和每页显示的总记录数【记住：必须在mapper接口中的方法执行之前设置该分页信息】
+
+        PageHelper.startPage(page, rows);
+
+        List<TRole> select = tRoleMapper.select();//全部商品
+        int countNums = tRoleMapper.countItem();            //总记录数
+        PageBean<TRole> pageData = new PageBean<>(page, rows, countNums);
+
+        pageData.setRows(select);
+        return pageData;
+    }
+
+    public List<TRole> selectAllRoles() {
+        return tRoleMapper.select();
+    }
+
+    public void deleRole(Integer roleId) {
+        tRoleMapper.delByKry(roleId);
+        roleHasResourceMapper.delByRoleKey(roleId);
+        tUserRoleMapper.deleteByRoleId(roleId);
     }
 }

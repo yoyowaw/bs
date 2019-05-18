@@ -32,7 +32,7 @@
       )
     values (#{staffId,jdbcType=INTEGER}, #{customerId,jdbcType=INTEGER}, #{customerName,jdbcType=VARCHAR}, 
       #{delegater,jdbcType=VARCHAR}, #{pickaddress,jdbcType=VARCHAR}, #{arrivecity,jdbcType=VARCHAR}, 
-      #{product,jdbcType=DATE}, #{num,jdbcType=INTEGER}, #{weight,jdbcType=DOUBLE}, #{volume,jdbcType=VARCHAR}, 
+      #{product,jdbcType=VARCHAR}, #{num,jdbcType=INTEGER}, #{weight,jdbcType=DOUBLE}, #{volume,jdbcType=VARCHAR},
       #{remark,jdbcType=VARCHAR}, #{ordertype,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}
       )
   </insert>
@@ -64,4 +64,7 @@
     product, num, weight, volume, remark, ordertype, user_id
     from qp_noticebill
   </select>
+    <select id="countItem" resultType="int">
+        select count(*) from qp_noticebill
+    </select>
 </mapper>

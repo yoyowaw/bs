@@ -16,4 +16,6 @@ public interface QpNoticebillMapper {
     List<QpNoticebill> selectAll();
 
     int updateByPrimaryKey(QpNoticebill record);
+
+    int countItem();
 }

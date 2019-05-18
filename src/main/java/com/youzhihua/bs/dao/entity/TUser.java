@@ -15,7 +15,7 @@ public class TUser implements Serializable {
 
     private Double salary;
 
-    private Date birthday;
+    private String birthday;
 
     private String gender;
 
@@ -26,6 +26,8 @@ public class TUser implements Serializable {
     private String remark;
 
     private Integer roleId;
+
+    private String roleName;
 
 
 }

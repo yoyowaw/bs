@@ -1,7 +1,9 @@
 package com.youzhihua.bs.controller;
 
+import com.youzhihua.bs.dao.entity.Region;
 import com.youzhihua.bs.dao.entity.Subarea;
 import com.youzhihua.bs.dto.SubareaQueryContion;
+import com.youzhihua.bs.response.SubareaResponse;
 import com.youzhihua.bs.service.SubareaService;
 import com.youzhihua.bs.utils.PageBean;
 import com.youzhihua.bs.utils.Result;
@@ -19,6 +21,7 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -40,14 +43,36 @@ public class SubareaController {
     @GetMapping("/subareaAction_pageQuery")
     @ResponseBody
     @ApiOperation("查找分区")
-    public PageBean<Subarea>  queryList(
+    public PageBean<SubareaResponse>  queryList(
             String addresskey, int page, int rows){
         String province = servletRequest.getParameter("region.province");
         String city = servletRequest.getParameter("region.city");
         String district = servletRequest.getParameter("region.district");
         SubareaQueryContion subareaQueryContion = new SubareaQueryContion(province,city,district,addresskey);
         PageBean<Subarea> all = subareaService.findAll(page, rows,subareaQueryContion);
-        return all;
+        List<SubareaResponse> list = new ArrayList<>();
+        List<Subarea> rows1 = all.getRows();
+        for (Subarea subarea : rows1) {
+            SubareaResponse response = new SubareaResponse();
+            response.setId(subarea.getId());
+            response.setAddressKey(subarea.getAddresskey());
+            response.setEndnum(subarea.getEndnum());
+            response.setSingle(subarea.getSingle());
+            response.setStartnum(subarea.getStartnum());
+            response.setPosition(subarea.getPosition());
+            Region region = subarea.getRegion();
+            if(region != null){
+                response.setProvince(region.getProvince());
+                response.setCity(region.getCity());
+                response.setDistrict(region.getDistrict());
+            }
+            list.add(response);
+        }
+
+        PageBean<SubareaResponse> result = new PageBean(page,rows,all.getTotal());
+
+        result.setRows(list);
+        return result;
     }
 
     @GetMapping("/subareaAction_export")
@@ -82,7 +107,8 @@ public class SubareaController {
     @GetMapping("/subareaAction_list")
     @ApiOperation("定区列表")
     public List<Subarea> list(){
-        return subareaService.queryAll();
+        List<Subarea> subareas = subareaService.queryAll();
+        return subareas;
     }
 
     @ResponseBody

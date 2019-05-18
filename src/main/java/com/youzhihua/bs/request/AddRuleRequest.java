@@ -15,6 +15,7 @@ public class AddRuleRequest {
     @ApiModelProperty("角色名称")
     private String name;
 
+    private String desc;
     @ApiModelProperty("角色拥有的菜单,菜单id逗号隔开")
     private String menuIds;
 

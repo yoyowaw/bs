@@ -17,4 +17,8 @@ public interface TUserRoleMapper {
 
 
     void insert(TUserRole userRole);
+
+    void updateByUserId(@Param("userId") Integer userId,@Param("roleId") Integer roleId);
+
+    void deleteByRoleId(@Param("roleId") Integer roleId);
 }

@@ -43,4 +43,8 @@ public class CustomerService {
     public String findIdByAddress(String address) {
         return mapper.getIdByAddress(address);
     }
+
+    public List<TCustomer> findCusotmer() {
+        return mapper.selectAll();
+    }
 }

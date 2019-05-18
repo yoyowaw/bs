@@ -10,4 +10,12 @@
           insert into t_user_role (role_id, user_id)
     values (#{roleId}, #{userId})
     </insert>
+
+
+    <update id="updateByUserId" parameterType="com.youzhihua.bs.dao.entity.TUserRole">
+          UPDATE t_user_role set role_id = #{roleId} where user_id = #{userId}
+    </update>
+    <delete id="deleteByRoleId">
+        delete from t_user_role where role_id = #{roleId}
+    </delete>
 </mapper>

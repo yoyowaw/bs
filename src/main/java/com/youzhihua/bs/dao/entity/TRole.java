@@ -17,4 +17,6 @@ public class TRole {
     @ApiModelProperty("权限名称")
     private String name;
 
+    private String desc;
+
 }

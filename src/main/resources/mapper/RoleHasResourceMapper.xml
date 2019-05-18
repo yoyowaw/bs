@@ -10,4 +10,7 @@
         select * from t_role_has_resource where role_id = #{roleId}
     </select>
 
+    <delete id="delByRoleKey" parameterType="integer">
+        delete from t_role_has_resource  where role_id = #{roleId}
+    </delete>
 </mapper>

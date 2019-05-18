@@ -16,4 +16,8 @@ public interface TRoleMapper {
     List<TRole> select();
 
     TRole selectById(@Param("roleId") Integer roleId);
+
+    int countItem();
+
+    void delByKry(@Param("roleId") Integer roleId);
 }

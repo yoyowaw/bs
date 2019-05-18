@@ -39,10 +39,11 @@ public class SubareaService {
         PageHelper.startPage(page, rows);
 
         List<Subarea> allItems = subareaMapper.selectAll();        //全部商品
-        allItems.forEach((e) -> {
-            Region region = regionMapper.selectByPrimaryKey(e.getRegionId());
-            e.setRegion(region);
-        });
+
+        for (Subarea allItem : allItems) {
+            Region region = regionMapper.selectByPrimaryKey(allItem.getRegionId());
+            allItem.setRegion(region);
+        }
 
         if (subareaQueryContion != null) {
             String addresskey = subareaQueryContion.getAddresskey();

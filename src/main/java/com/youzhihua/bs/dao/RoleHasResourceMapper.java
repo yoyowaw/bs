@@ -16,4 +16,6 @@ public interface RoleHasResourceMapper {
     int insert(RoleHasResource roleHasResource);
 
     List<RoleHasResource> selectByRoleId(@Param("roleId") Integer roleId);
+
+    void delByRoleKey(@Param("roleId") Integer roleId);
 }

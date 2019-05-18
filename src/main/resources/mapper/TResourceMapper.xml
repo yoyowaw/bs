@@ -10,4 +10,8 @@
         select * from t_resource where id = #{id}
     </select>
 
+    <select id="findAllList" resultType="com.youzhihua.bs.dao.entity.TResource">
+        select * from t_resource
+    </select>
+
 </mapper>

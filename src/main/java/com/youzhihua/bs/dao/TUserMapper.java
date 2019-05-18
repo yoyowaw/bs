@@ -19,5 +19,11 @@ public interface TUserMapper {
 
     TUser selectByName(String name);
 
+    List<TUser> selectAllUser();
+
     void updatePwd(TUser tuser);
+
+    int countItems();
+
+    void deleteByRoleId(Integer roleId);
 }

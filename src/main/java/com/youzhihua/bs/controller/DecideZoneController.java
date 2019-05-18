@@ -25,7 +25,7 @@ public class DecideZoneController {
 
     @PostMapping("/decidedzone_add")
     @ApiOperation("添加定区")
-    public Result add(AddDecideZoneRequest request){
+    public Result add(@RequestBody AddDecideZoneRequest request){
         decidedzoneServece.add(request);
         return ResultUtils.success();
     }
@@ -36,6 +36,13 @@ public class DecideZoneController {
         PageBean<Decidedzone> itemByPage = decidedzoneServece.findItemByPage(page, rows);
 
         return itemByPage;
+    }
+
+    @GetMapping("/decidedzone_all")
+    @ResponseBody
+    public List<Decidedzone> all(){
+        return decidedzoneServece.findAll();
+
     }
 
     @GetMapping("/del-decidedzone/{id}")

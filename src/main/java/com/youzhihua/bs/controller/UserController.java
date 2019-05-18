@@ -6,6 +6,7 @@ import com.youzhihua.bs.dto.UserLoginDTO;
 import com.youzhihua.bs.response.UserLoginResponse;
 import com.youzhihua.bs.service.RoleService;
 import com.youzhihua.bs.service.UserService;
+import com.youzhihua.bs.utils.PageBean;
 import com.youzhihua.bs.utils.Result;
 import com.youzhihua.bs.request.UserLoginRequest;
 import com.youzhihua.bs.utils.ResultUtils;
@@ -81,9 +82,24 @@ public class UserController {
     @ApiOperation("增加用户")
     @PostMapping("/add-user")
     public Result addUser(@RequestBody TUser user){
-        httpServletResponse.setHeader("Access-Control-Allow-Origin","*");
         userService.add(user);
         return ResultUtils.success();
     }
 
+    @GetMapping("/user-list")
+    public PageBean<TUser> getUserList(Integer page  , Integer rows){
+        return userService.selectLists(page,rows);
+    }
+
+    @GetMapping("/del-user/{id}")
+    public Result delUser(@PathVariable("id") Integer id){
+        userService.delUser(id);
+        return ResultUtils.success();
+    }
+
+    @PostMapping("/edit-user")
+    public Result editUser(@RequestBody TUser user){
+        userService.editUser(user);
+        return ResultUtils.success();
+    }
 }

@@ -46,9 +46,6 @@ public class StaffService {
 
     public List<Staff> findAll() {
         List<Staff> staff = staffMapper.selectAll();
-        List<Staff> collect = staff.stream().filter((e) -> {
-            return e.getDeltag().equals("0");
-        }).collect(Collectors.toList());
-        return collect;
+        return staff;
     }
 }

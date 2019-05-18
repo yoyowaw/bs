@@ -11,7 +11,7 @@ import java.io.Serializable;
 public class Staff implements Serializable {
 
     @ApiModelProperty("取派员id")
-    private String id;
+    private Integer id;
 
     @ApiModelProperty("取派员m名称")
     private String name;

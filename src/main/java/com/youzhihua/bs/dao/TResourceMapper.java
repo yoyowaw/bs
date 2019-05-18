@@ -15,4 +15,7 @@ public interface TResourceMapper {
     TResource getByid(Integer id);
 
     List<TResource> findAll();
+
+    List<TResource> findAllList();
+
 }

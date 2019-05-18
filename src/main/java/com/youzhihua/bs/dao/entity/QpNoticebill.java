@@ -14,18 +14,17 @@ public class QpNoticebill implements Serializable {
 
 
     private Integer staffId;
-
     private Integer customerId;
 
     private String customerName;
 
-    private String delegater;
+        private String delegater;
 
     private String pickaddress;
 
     private String arrivecity;
 
-    private Date product;
+    private String product;
 
     private Integer num;
 
@@ -38,4 +37,6 @@ public class QpNoticebill implements Serializable {
     private String ordertype;
 
     private String userId;
+
+    private String staffName;
 }

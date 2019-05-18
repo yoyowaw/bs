@@ -67,4 +67,13 @@ public class CustomerController {
 
     }
 
+    @GetMapping("/find-customer")
+    @ResponseBody
+    @ApiOperation("根据地址获取客户id")
+    public List<TCustomer> findCusotmer(){
+
+        return customerService.findCusotmer();
+
+    }
+
 }

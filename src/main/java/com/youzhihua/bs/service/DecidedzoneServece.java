@@ -25,6 +25,7 @@ public class DecidedzoneServece {
     public void add(AddDecideZoneRequest decidedzone) {
         Decidedzone decidedzone1 = new Decidedzone();
         BeanUtils.copyProperties(decidedzone,decidedzone1);
+        decidedzone1.setStaffId(String.valueOf(decidedzone.getStaffId()));
         mapper.insert(decidedzone1);
     }
 
@@ -57,5 +58,10 @@ public class DecidedzoneServece {
         Decidedzone decidedzone1 = new Decidedzone();
         BeanUtils.copyProperties(request,decidedzone1);
         mapper.updateByPrimaryKey(decidedzone1);
+    }
+
+    public List<Decidedzone> findAll() {
+        List<Decidedzone> allItems = mapper.selectAll();
+        return allItems;
     }
 }

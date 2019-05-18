@@ -3,6 +3,8 @@ package com.youzhihua.bs.controller;
 import com.youzhihua.bs.dao.entity.Staff;
 import com.youzhihua.bs.service.StaffService;
 import com.youzhihua.bs.utils.PageBean;
+import com.youzhihua.bs.utils.Result;
+import com.youzhihua.bs.utils.ResultUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -22,15 +24,15 @@ public class StaffController {
 
     @ApiOperation("增加取派员")
     @PostMapping("/staffAction-add")
-    public Boolean add(Staff staff){
+    public Result add(@RequestBody Staff staff){
         staffService.save(staff);
-        return true;
+        return ResultUtils.success();
     }
 
     //取派员分页查询
     @ApiOperation("区派员分页查询")
     @GetMapping("/staffAction_pageQuery")
-    public PageBean<Staff> selectList(int page, int rows){
+    public PageBean<Staff> selectList(Integer page, Integer rows){
         PageBean<Staff> itemByPage = staffService.findItemByPage(page, rows);
         return itemByPage;
     }
@@ -45,9 +47,9 @@ public class StaffController {
     //删除员工
     @ApiOperation("删除取派员")
     @GetMapping("staffAction_delete/{ids}")
-    public Boolean deleteStaff(@PathVariable(value = "ids")@ApiParam("取派员id列表") String ids){
+    public Result deleteStaff(@PathVariable(value = "ids")@ApiParam("取派员id列表") String ids){
         staffService.deleteStaff(ids);
-        return true;
+        return ResultUtils.success();
     }
 
     @ApiOperation("修改取派员")
