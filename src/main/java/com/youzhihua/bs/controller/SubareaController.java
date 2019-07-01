@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@Api(value = "分区管理",tags = "定区管理")
+@Api(value = "分区管理", tags = "定区管理")
 public class SubareaController {
 
     @Autowired
@@ -35,21 +35,21 @@ public class SubareaController {
 
     @PostMapping("/su-add")
     @ApiModelProperty("添加定区")
-    public Result add(@RequestBody Subarea subarea){
-        subareaService.save( subarea);
+    public Result add(@RequestBody Subarea subarea) {
+        subareaService.save(subarea);
         return ResultUtils.success();
     }
 
     @GetMapping("/subareaAction_pageQuery")
     @ResponseBody
     @ApiOperation("查找分区")
-    public PageBean<SubareaResponse>  queryList(
-            String addresskey, int page, int rows){
+    public PageBean<SubareaResponse> queryList(
+            String addresskey, int page, int rows) {
         String province = servletRequest.getParameter("region.province");
         String city = servletRequest.getParameter("region.city");
         String district = servletRequest.getParameter("region.district");
-        SubareaQueryContion subareaQueryContion = new SubareaQueryContion(province,city,district,addresskey);
-        PageBean<Subarea> all = subareaService.findAll(page, rows,subareaQueryContion);
+        SubareaQueryContion subareaQueryContion = new SubareaQueryContion(province, city, district, addresskey);
+        PageBean<Subarea> all = subareaService.findAll(page, rows, subareaQueryContion);
         List<SubareaResponse> list = new ArrayList<>();
         List<Subarea> rows1 = all.getRows();
         for (Subarea subarea : rows1) {
@@ -61,7 +61,7 @@ public class SubareaController {
             response.setStartnum(subarea.getStartnum());
             response.setPosition(subarea.getPosition());
             Region region = subarea.getRegion();
-            if(region != null){
+            if (region != null) {
                 response.setProvince(region.getProvince());
                 response.setCity(region.getCity());
                 response.setDistrict(region.getDistrict());
@@ -69,7 +69,7 @@ public class SubareaController {
             list.add(response);
         }
 
-        PageBean<SubareaResponse> result = new PageBean(page,rows,all.getTotal());
+        PageBean<SubareaResponse> result = new PageBean(page, rows, all.getTotal());
 
         result.setRows(list);
         return result;
@@ -97,16 +97,17 @@ public class SubareaController {
             row1.createCell(4).setCellValue(subarea.getRegionId());
         }
         ServletOutputStream outputStream = response.getOutputStream();
-        response.setHeader("content-disposition","attachment:filename=subarea.xls");
+        response.setHeader("content-disposition", "attachment:filename=subarea.xls");
         response.setContentType("application/vnd.ms-excel");
         workbook.write(outputStream);
 
 
     }
 
+
     @GetMapping("/subareaAction_list")
     @ApiOperation("定区列表")
-    public List<Subarea> list(){
+    public List<Subarea> list() {
         List<Subarea> subareas = subareaService.queryAll();
         return subareas;
     }
@@ -114,10 +115,29 @@ public class SubareaController {
     @ResponseBody
     @ApiOperation("根据id查找分区")
     @RequestMapping("/subarea_findList/{id}")
-    public List<Subarea> findList(@PathVariable("id") String id){
-        return subareaService.findList(id);
+    public List<SubareaResponse> findList(@PathVariable("id") String id) {
+        List<Subarea> list1 = subareaService.findList(id);
+        List<SubareaResponse> list = new ArrayList<>();
+        for (Subarea subarea : list1) {
+            if (subarea != null) {
+                SubareaResponse response = new SubareaResponse();
+                response.setId(subarea.getId());
+                response.setAddressKey(subarea.getAddresskey());
+                response.setEndnum(subarea.getEndnum());
+                response.setSingle(subarea.getSingle());
+                response.setStartnum(subarea.getStartnum());
+                response.setPosition(subarea.getPosition());
+                Region region = subarea.getRegion();
+                if (region != null) {
+                    response.setProvince(region.getProvince());
+                    response.setCity(region.getCity());
+                    response.setDistrict(region.getDistrict());
+                }
+                list.add(response);
+            }
+        }
+        return list;
     }
-
 
 
 }

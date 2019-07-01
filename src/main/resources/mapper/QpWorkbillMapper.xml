@@ -48,4 +48,9 @@
     staff_id
     from qp_workbill
   </select>
+
+    <select id="countItem" resultType="int">
+        select COUNT(*) as count
+    from qp_workbill
+    </select>
 </mapper>

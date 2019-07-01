@@ -3,6 +3,8 @@ package com.youzhihua.bs.controller;
 import com.youzhihua.bs.request.LinkCustomerRequest;
 import com.youzhihua.bs.dao.entity.TCustomer;
 import com.youzhihua.bs.service.CustomerService;
+import com.youzhihua.bs.utils.Result;
+import com.youzhihua.bs.utils.ResultUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -29,10 +31,8 @@ public class CustomerController {
     @GetMapping("/findLink/{id}")
     @ResponseBody
     @ApiOperation("查询已经关联的用户")
-    public List<TCustomer> findLink(@PathVariable("id") @ApiParam("定区id") String id){
-        String[] split = id.split("=");
-
-        return customerService.findLink(Integer.valueOf(split[1]));
+    public List<TCustomer> findLink(@PathVariable("id")Integer id){
+        return customerService.findLink(id);
     }
     @GetMapping("/find-link/{id}")
     @ResponseBody
@@ -45,9 +45,9 @@ public class CustomerController {
     @PostMapping("link-customer")
     @ResponseBody
     @ApiOperation("定区关联客户")
-    public String linkCustomer(@RequestBody LinkCustomerRequest request){
+    public Result linkCustomer(@RequestBody LinkCustomerRequest request){
         customerService.linkCustomer(request);
-        return "/WEB-INF/pages/base/decidedzone";
+        return ResultUtils.success();
     }
 
     @GetMapping("find-customer-by-telephone/{telephone}")

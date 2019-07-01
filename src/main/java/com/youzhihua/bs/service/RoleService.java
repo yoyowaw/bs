@@ -14,7 +14,6 @@ import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @Author youzhihua
@@ -41,11 +40,16 @@ public class RoleService {
         String menuIds = request.getMenuIds();
         String[] split = menuIds.split(",");
         for (String s : split) {
+
             TResource byid = tResourceMapper.getByid(Integer.valueOf(s));
             if (byid!=null&&byid.getParent()!=null&&byid.getParent()!=0){
-                menuIds = menuIds + ","+byid.getParent();
+                if(!menuIds.contains((byid.getParent().toString()))){
+                    menuIds = menuIds + ","+byid.getParent();
+                }
+
             }
         }
+
         request.setMenuIds(menuIds);
         TRole role = new TRole();
         role.setName(request.getName());

@@ -1,6 +1,7 @@
 package com.youzhihua.bs.dao;
 
 import com.youzhihua.bs.dao.entity.Region;
+import com.youzhihua.bs.request.SelectRegionRequest;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -20,4 +21,5 @@ public interface RegionMapper {
 
     int countItem();
 
+    List<Region> selectByExample(SelectRegionRequest regionRequest);
 }

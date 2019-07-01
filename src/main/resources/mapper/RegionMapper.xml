@@ -49,4 +49,18 @@
     select COUNT(*) as count
     from bc_region
   </select>
+
+    <select id="selectByExample"  resultMap="BaseResultMap" parameterType="com.youzhihua.bs.request.SelectRegionRequest">
+        select  id, province, city, district, postcode, shortcode, citycode from bc_region
+        where 1=1
+        <if test="province != null and province != ''">
+        and province like CONCAT(#{province,jdbcType = VARCHAR},'%')
+        </if>
+        <if test="city != null and city != ''">
+           and city like CONCAT(#{city,jdbcType = VARCHAR},'%')
+        </if>
+        <if test="district != null and district != ''">
+           andduo district like CONCAT(#{district,jdbcType = VARCHAR},'%')
+        </if>
+    </select>
 </mapper>

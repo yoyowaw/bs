@@ -89,7 +89,7 @@ public class SubareaService {
                 String[] split = decidedzone.getSubareaid().split(",");
                 for (String s : split) {
                     Subarea subarea = subareaMapper.selectByPrimaryKey(s);
-                    if(subarea.getRegionId() != null){
+                    if(subarea!=null && subarea.getRegionId() != null){
                         Region region = regionMapper.selectByPrimaryKey(subarea.getRegionId());
                         subarea.setRegion(region);
 

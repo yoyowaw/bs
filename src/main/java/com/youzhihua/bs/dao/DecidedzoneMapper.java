@@ -1,6 +1,7 @@
 package com.youzhihua.bs.dao;
 
 import com.youzhihua.bs.dao.entity.Decidedzone;
+import com.youzhihua.bs.request.ZoneRequest;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -21,4 +22,6 @@ public interface DecidedzoneMapper {
     int countItem();
 
     int deleteByRId(@Param("id") String id);
+
+    List<Decidedzone> selectByName(ZoneRequest zoneRequest);
 }

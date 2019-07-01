@@ -3,6 +3,7 @@ package com.youzhihua.bs.controller;
 import com.youzhihua.bs.dao.entity.TResource;
 import com.youzhihua.bs.dao.entity.TUser;
 import com.youzhihua.bs.dto.UserLoginDTO;
+import com.youzhihua.bs.response.CountResponse;
 import com.youzhihua.bs.response.UserLoginResponse;
 import com.youzhihua.bs.service.RoleService;
 import com.youzhihua.bs.service.UserService;
@@ -101,5 +102,10 @@ public class UserController {
     public Result editUser(@RequestBody TUser user){
         userService.editUser(user);
         return ResultUtils.success();
+    }
+
+    @GetMapping("/count")
+    public List<List<CountResponse>> count(){
+        return userService.countNum();
     }
 }

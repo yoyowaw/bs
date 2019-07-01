@@ -1,6 +1,9 @@
 package com.youzhihua.bs.controller;
 
 import com.youzhihua.bs.dao.entity.Decidedzone;
+import com.youzhihua.bs.dao.entity.Subarea;
+import com.youzhihua.bs.request.ZoneRequest;
+import com.youzhihua.bs.response.SubareaResponse;
 import com.youzhihua.bs.service.DecidedzoneServece;
 import com.youzhihua.bs.utils.PageBean;
 import com.youzhihua.bs.utils.Result;
@@ -55,5 +58,10 @@ public class DecideZoneController {
     public Result edit(@RequestBody AddDecideZoneRequest request){
         decidedzoneServece.edit(request);
         return ResultUtils.success();
+    }
+
+    @GetMapping("/select-zone")
+    public List<Decidedzone> select(ZoneRequest zoneRequest){
+        return decidedzoneServece.select(zoneRequest);
     }
 }

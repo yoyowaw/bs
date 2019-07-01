@@ -41,4 +41,13 @@
     <delete id="deleteByRId">
         delete from bc_subarea where region_id = #{id}
     </delete>
+
+    <select id="selectByName" resultMap="BaseResultMap" parameterType="com.youzhihua.bs.request.ZoneRequest">
+         select id, `name`, staff_id
+    from bc_decidedzone
+    where 1=1
+    <if test="name != null and name != ''">
+        and name like CONCAT(#{name,jdbcType = VARCHAR},'%')
+    </if>
+    </select>
 </mapper>

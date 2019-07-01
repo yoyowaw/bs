@@ -18,7 +18,7 @@ public class QpNoticebill implements Serializable {
 
     private String customerName;
 
-        private String delegater;
+    private String delegater;
 
     private String pickaddress;
 

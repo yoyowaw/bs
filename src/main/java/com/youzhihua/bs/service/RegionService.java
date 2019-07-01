@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.youzhihua.bs.dao.DecidedzoneMapper;
 import com.youzhihua.bs.dao.RegionMapper;
 import com.youzhihua.bs.dao.entity.Region;
+import com.youzhihua.bs.request.SelectRegionRequest;
 import com.youzhihua.bs.utils.PageBean;
 import com.youzhihua.bs.utils.PinYin4jUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -70,7 +71,9 @@ public class RegionService {
     }
 
     public List<Region> findAll() {
-        return regionMapper.selectAll();
+        List<Region> regions = regionMapper.selectAll();
+        return regions;
+
     }
 
     public void delRegion(String id) {
@@ -84,5 +87,9 @@ public class RegionService {
 
     public void edit(Region region){
         regionMapper.updateByPrimaryKey(region);
+    }
+
+    public List<Region> select(SelectRegionRequest regionRequest) {
+       return regionMapper.selectByExample(regionRequest);
     }
 }

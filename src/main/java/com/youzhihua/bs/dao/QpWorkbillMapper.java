@@ -17,4 +17,6 @@ public interface QpWorkbillMapper {
     List<QpWorkbill> selectAll();
 
     int updateByPrimaryKey(QpWorkbill record);
+
+    int countItem();
 }

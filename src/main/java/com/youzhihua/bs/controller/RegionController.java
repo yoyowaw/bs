@@ -1,6 +1,7 @@
 package com.youzhihua.bs.controller;
 
 import com.youzhihua.bs.dao.entity.Region;
+import com.youzhihua.bs.request.SelectRegionRequest;
 import com.youzhihua.bs.service.RegionService;
 import com.youzhihua.bs.utils.PageBean;
 import com.youzhihua.bs.utils.Result;
@@ -23,12 +24,21 @@ public class RegionController {
 
     @ApiOperation("区域导入")
     @PostMapping("/regionAction_importXls.action")
-    public void importXls(@RequestParam("regionFile")MultipartFile regionFile) throws IOException {
+    public Result importXls(@RequestParam("regionFile")MultipartFile regionFile) throws IOException {
         regionService.impotRrgion(regionFile);
+        return ResultUtils.success();
+    }
+
+    @ApiOperation("区域查询")
+    @GetMapping("/select-region")
+    public List<Region> selectRegion(SelectRegionRequest regionRequest){
+
+        return regionService.select(regionRequest);
+
     }
 
     //取派员分页查询
-    @ApiOperation("区派员分页查询")
+    @ApiOperation("区域分页查询")
     @GetMapping("/regionAction_pageQuery")
     @ResponseBody
     public PageBean<Region> selectList(Integer page, Integer rows){
